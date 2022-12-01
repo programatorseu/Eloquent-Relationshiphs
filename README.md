@@ -25,3 +25,13 @@ result we got :
    ]
 ```
    
+
+   run in tinker
+   we do not need to specify namespace path in Tinker session any more 
+
+   ```bash
+   Post::factory()->create()
+   Post::factory()->create(['user_id'=>2]);
+
+   User::find(2)->posts
+   ```
