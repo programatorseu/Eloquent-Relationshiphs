@@ -35,3 +35,8 @@ result we got :
 
    User::find(2)->posts
    ```
+
+   ```bash
+   $post = Post::find(1);
+   $post->tags->pluck('name');
+   ```
