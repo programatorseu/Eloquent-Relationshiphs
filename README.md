@@ -68,3 +68,40 @@ Tinker session
 $sport = Affiliation::whereName('sport')->first();
 $sport->posts;
 ```
+
+
+### Polymorphic
+Video - Series relation 
+Videos belongs to Series
+Series has many Videos 
+
+We have extra Collection - model & migration 
+now change video  :
+-> will not belong exclusively to series  / we do not have this relationship anymore 
+-> we need to be more generic / **morphs** helper method
+```php
+        Schema::create('videos', function (Blueprint $table) {
+            $table->id();
+            $table->morphs('watchable');
+            $table->string('title');
+            $table->text('description');
+            $table->string('url');
+            $table->timestamps();
+        });
+```
+
+`Video@watchable` method : 
+```php
+    public function watchable()
+    {
+        return $this->morphTo();
+    }
+```
+
+Remember aobout mapping in `AppServiceProvider` 
+```
+       Relation::morphMap([
+            'series' => 'App\Series',
+            'collection' => 'App\Collection'
+        ]);
+```
