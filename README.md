@@ -40,3 +40,31 @@ result we got :
    $post = Post::find(1);
    $post->tags->pluck('name');
    ```
+   with many to many we have : 
+   1. pivot table `post_tag`
+   2. `@tags` method -> belongsTo(Tags) called from Post
+   3. `@posts` method -> belongsTo(Tags) called from Tag
+
+install laravel debug bar 
+
+### Has-Many-Through
+Create Affiliation mfc
+run few factories
+
+- add affiliation_id collumn to users migration 
+  
+```sql
+ select id from users where affiliation_id = 1; # 5,6
+ select * from posts where user_id in (5,6)
+```
+inside Affiliation `@posts` method : 
+```php
+    return $this->hasManyThrough(Post::class, User::class);
+```
+
+
+Tinker session
+```
+$sport = Affiliation::whereName('sport')->first();
+$sport->posts;
+```
